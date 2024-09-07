@@ -6,11 +6,12 @@
 
 void runGame() 
 {
-    SDL_Window* window = SDL_CreateWindow("YaT", 30, 30, 600, 500, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow("YaT", 30, 30, 540, 804, SDL_WINDOW_SHOWN);
     SDL_Surface* surface = SDL_GetWindowSurface(window);
     
+    Image fieldImage{"res/Field.png"};
     Image berryImage{"res/BlueBerry.png"};
-
+    
     bool run{true};
     while (run)
     {
@@ -29,8 +30,9 @@ void runGame()
         }
 
         SDL_Rect postition;
-        postition.x = 100;
-        postition.y = 100;
+        postition.x = 0;
+        postition.y = 0;
+        fieldImage.draw(surface, postition);
         berryImage.draw(surface, postition);
 
         SDL_UpdateWindowSurface(window);
