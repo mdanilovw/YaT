@@ -6,7 +6,7 @@
 class IDrawable
 {
     public:
-    virtual void draw(SDL_Surface* destination, SDL_Rect& position) = 0;
+    virtual void draw(SDL_Rect& position) = 0;
 
     virtual ~IDrawable() = default;
 

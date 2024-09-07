@@ -3,23 +3,35 @@
 #include "ui/image.h"
 
 
-Image::Image(const std::string& filePath)
+Image::Image(const std::string& filePath, SDL_Renderer& renderer): renderer{renderer}
 {
-    imageSufrace = IMG_Load(filePath.c_str());
+    SDL_Surface* sufrace{nullptr};
+    sufrace = IMG_Load(filePath.c_str());
+
+    if(sufrace == nullptr)
+    {
+        std::string errorMessage = "Unable to create a surface for image " + filePath + "\n";
+        throw errorMessage;
+    }
+
+    texture = nullptr;
+    texture = SDL_CreateTextureFromSurface(&renderer, sufrace);
+
+    SDL_FreeSurface(sufrace);
+
+    if(texture == nullptr)
+    {
+        std::string errorMessage = "Unable to create a texture for image " + filePath + "\n";
+        throw errorMessage;
+    }
 }
 
 Image::~Image()
 {
-    if(imageSufrace != nullptr)
-    {
-        SDL_FreeSurface(imageSufrace);
-    }
+    SDL_DestroyTexture(texture);
 }
 
-void Image::draw(SDL_Surface* destination, SDL_Rect& position)
+void Image::draw(SDL_Rect& position)
 {
-    if(imageSufrace != nullptr)
-    {
-        SDL_BlitSurface(imageSufrace, nullptr, destination, &position);
-    }
+    SDL_RenderCopy(&renderer, texture, NULL, &position);
 }

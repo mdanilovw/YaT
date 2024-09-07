@@ -8,14 +8,15 @@
 class Image : public IDrawable
 {
     public:
-    Image(const std::string& filePath);
+    Image(const std::string& filePath, SDL_Renderer&);
 
-    void draw(SDL_Surface* destination, SDL_Rect& position);
+    void draw(SDL_Rect& position);
 
     ~Image();
 
     private:
-    SDL_Surface* imageSufrace;
+    SDL_Renderer& renderer;
+    SDL_Texture* texture;
 };
 
 #endif
