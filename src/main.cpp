@@ -3,6 +3,7 @@
 #include <SDL2/SDL_image.h>
 
 #include "ui/image.h"
+#include "ui/drawer.h"
 
 void runGame() 
 {
@@ -15,6 +16,8 @@ void runGame()
         std::string errorMessage{"Unable to create a renderer\n"};
         throw errorMessage;
     }
+
+    Drawer drawer{*renderer};
     
     Image fieldImage{"res/Field.png", *renderer};
     Image berryImage{"res/BlueBerry.png", *renderer};
@@ -41,12 +44,14 @@ void runGame()
         fieldPostition.y = 0;
         fieldPostition.h = 804;
         fieldPostition.w = 540;
+        drawer.draw(fieldImage, fieldPostition);
 
         SDL_Rect berryPostition;
         berryPostition.x = 50;
         berryPostition.y = 50;
         berryPostition.h = 100;
         berryPostition.w = 100;
+        drawer.draw(berryImage, berryPostition);
 
         SDL_RenderPresent(renderer);
     }
