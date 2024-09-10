@@ -41,14 +41,12 @@ void runGame()
         fieldPostition.y = 0;
         fieldPostition.h = 804;
         fieldPostition.w = 540;
-        fieldImage.draw(fieldPostition);
 
         SDL_Rect berryPostition;
         berryPostition.x = 50;
         berryPostition.y = 50;
         berryPostition.h = 100;
         berryPostition.w = 100;
-        berryImage.draw(berryPostition);
 
         SDL_RenderPresent(renderer);
     }
