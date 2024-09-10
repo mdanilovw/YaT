@@ -11,6 +11,7 @@ class Image : public IDrawable
     Image(const std::string& filePath, SDL_Renderer&);
 
     void draw(SDL_Rect& position);
+    SDL_Texture& getTexture() override;
 
     ~Image();
 

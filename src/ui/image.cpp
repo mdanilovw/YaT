@@ -26,12 +26,16 @@ Image::Image(const std::string& filePath, SDL_Renderer& renderer): renderer{rend
     }
 }
 
-Image::~Image()
-{
-    SDL_DestroyTexture(texture);
-}
-
 void Image::draw(SDL_Rect& position)
 {
     SDL_RenderCopy(&renderer, texture, NULL, &position);
+}
+
+SDL_Texture& Image::getTexture() {
+    return *texture;
+}
+
+Image::~Image()
+{
+    SDL_DestroyTexture(texture);
 }

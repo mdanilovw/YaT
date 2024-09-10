@@ -7,6 +7,7 @@ class IDrawable
 {
     public:
     virtual void draw(SDL_Rect& position) = 0;
+    virtual SDL_Texture& getTexture() = 0;
 
     virtual ~IDrawable() = default;
 
