@@ -9,6 +9,8 @@ class IDrawer
 {
     public:
     virtual void draw(IDrawable&, const SDL_Rect& destArea) const = 0;
+    virtual void draw(IDrawable&, const SDL_Rect& destArea,
+                        double angle, SDL_Point& rotationPoint) const = 0;
     virtual ~IDrawer() = default;
 
     protected:

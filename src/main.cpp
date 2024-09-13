@@ -21,6 +21,19 @@ void runGame()
     
     Image fieldImage{"res/Field.png", *renderer};
     Image berryImage{"res/BlueBerry.png", *renderer};
+
+    SDL_Rect fieldPostition;
+    fieldPostition.x = 0;
+    fieldPostition.y = 0;
+    fieldPostition.h = 804;
+    fieldPostition.w = 540;
+
+    SDL_Rect berryPostition;
+    berryPostition.x = 50;
+    berryPostition.y = 50;
+    berryPostition.h = 100;
+    berryPostition.w = 100;
+    double berryAngle{0};
     
     bool run{true};
     while (run)
@@ -39,21 +52,22 @@ void runGame()
             }
         }
 
-        SDL_Rect fieldPostition;
-        fieldPostition.x = 0;
-        fieldPostition.y = 0;
-        fieldPostition.h = 804;
-        fieldPostition.w = 540;
         drawer.draw(fieldImage, fieldPostition);
 
-        SDL_Rect berryPostition;
-        berryPostition.x = 50;
-        berryPostition.y = 50;
-        berryPostition.h = 100;
-        berryPostition.w = 100;
-        drawer.draw(berryImage, berryPostition);
-
+        SDL_Point berryRotationPoint;
+        berryRotationPoint.x = berryPostition.w/2;
+        berryRotationPoint.y = berryPostition.h/2;
+        berryRotationPoint.x += berryPostition.x;
+        berryRotationPoint.y += berryPostition.y;
+        
+        drawer.draw(berryImage, berryPostition, berryAngle, berryRotationPoint);
+        
         SDL_RenderPresent(renderer);
+        berryAngle++;
+        berryPostition.w++;
+        berryPostition.h++;
+
+        SDL_Delay(10);
     }
     
     SDL_DestroyRenderer(renderer);

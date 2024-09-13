@@ -8,6 +8,8 @@ class Drawer : public IDrawer
     public:
     Drawer(SDL_Renderer&);
     void draw(IDrawable&, const SDL_Rect& destArea) const override;
+    virtual void draw(IDrawable&, const SDL_Rect& destArea,
+                        double angle, SDL_Point& rotationPoint) const override;
 
     private:
     SDL_Renderer& renderer;
