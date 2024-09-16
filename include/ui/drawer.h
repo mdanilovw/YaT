@@ -7,9 +7,7 @@ class Drawer : public IDrawer
 {
     public:
     Drawer(SDL_Renderer&);
-    void draw(IDrawable&, const SDL_Rect& destArea) const override;
-    virtual void draw(IDrawable&, const SDL_Rect& destArea,
-                        double angle, const SDL_Point& rotationPoint) const override;
+    void draw(IUIObject& uiObject) override;
 
     private:
     SDL_Renderer& renderer;

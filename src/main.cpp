@@ -44,14 +44,14 @@ void runGame()
             }
         }
 
-        drawer.draw(field.getIDrawable(), field.getRect());
+        drawer.draw(field);
 
         berry.getRotationCenter().x = berry.getRect().w/2;
         berry.getRotationCenter().y = berry.getRect().h/2;
         berry.getRotationCenter().x += berry.getRect().x;
         berry.getRotationCenter().y += berry.getRect().y;
         
-        drawer.draw(berry.getIDrawable(), berry.getRect(), berry.getAngle(), berry.getRotationCenter());
+        drawer.draw(berry);
         
         SDL_RenderPresent(renderer);
 

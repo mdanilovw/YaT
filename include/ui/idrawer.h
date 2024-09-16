@@ -3,14 +3,13 @@
 
 #include <SDL2/SDL.h>
 
-#include "ui/idrawable.h"
+#include "ui/iuiobject.h"
 
 class IDrawer
 {
     public:
-    virtual void draw(IDrawable&, const SDL_Rect& destArea) const = 0;
-    virtual void draw(IDrawable&, const SDL_Rect& destArea,
-                        double angle, const SDL_Point& rotationPoint) const = 0;
+    virtual void draw(IUIObject&) = 0;
+
     virtual ~IDrawer() = default;
 
     protected:
