@@ -1,9 +1,11 @@
 #include <iostream>
+#include <memory>
 
 #include <SDL2/SDL_image.h>
 
 #include "ui/image.h"
 #include "ui/drawer.h"
+#include "ui/uiobject.h"
 
 void runGame() 
 {
@@ -19,21 +21,11 @@ void runGame()
 
     Drawer drawer{*renderer};
     
-    Image fieldImage{"res/Field.png", *renderer};
-    Image berryImage{"res/BlueBerry.png", *renderer};
+    auto fieldImage = std::make_unique<Image>("res/Field.png", *renderer);
+    auto berryImage = std::make_unique<Image>("res/BlueBerry.png", *renderer);
 
-    SDL_Rect fieldPostition;
-    fieldPostition.x = 0;
-    fieldPostition.y = 0;
-    fieldPostition.h = 804;
-    fieldPostition.w = 540;
-
-    SDL_Rect berryPostition;
-    berryPostition.x = 50;
-    berryPostition.y = 50;
-    berryPostition.h = 100;
-    berryPostition.w = 100;
-    double berryAngle{0};
+    UIOjbect field{std::move(fieldImage), {0, 0, 540, 804}, {}, 0};
+    UIOjbect berry{std::move(berryImage), {50, 50, 100, 100}, {}, 0};
     
     bool run{true};
     while (run)
@@ -52,21 +44,21 @@ void runGame()
             }
         }
 
-        drawer.draw(fieldImage, fieldPostition);
+        drawer.draw(field.getIDrawable(), field.getRect());
 
-        SDL_Point berryRotationPoint;
-        berryRotationPoint.x = berryPostition.w/2;
-        berryRotationPoint.y = berryPostition.h/2;
-        berryRotationPoint.x += berryPostition.x;
-        berryRotationPoint.y += berryPostition.y;
+        berry.getRotationCenter().x = berry.getRect().w/2;
+        berry.getRotationCenter().y = berry.getRect().h/2;
+        berry.getRotationCenter().x += berry.getRect().x;
+        berry.getRotationCenter().y += berry.getRect().y;
         
-        drawer.draw(berryImage, berryPostition, berryAngle, berryRotationPoint);
+        drawer.draw(berry.getIDrawable(), berry.getRect(), berry.getAngle(), berry.getRotationCenter());
         
         SDL_RenderPresent(renderer);
-        berryAngle++;
-        berryPostition.w++;
-        berryPostition.h++;
 
+        berry.getRect().w++;
+        berry.getRect().h++;
+        berry.getAngle()++;
+        
         SDL_Delay(10);
     }
     
